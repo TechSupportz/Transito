@@ -122,11 +122,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _accentColourFieldKey.currentState?.validate();
 
     if (_accentColourFieldKey.currentState!.isValid && user != null) {
+      Color newColour = _accentColourFieldKey.currentState!.value as Color;
+
       SettingsService()
           .updateAccentColour(
             userId: user.uid,
-            newValue:
-                '0x${_accentColourFieldKey.currentState!.value.toString().substring(8, 16).toUpperCase()}',
+            newValue: '0x${newColour.value.toRadixString(16).toUpperCase()}',
           )
           .then((_) => showDialog(
                 context: context,
